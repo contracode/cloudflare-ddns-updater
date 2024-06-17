@@ -12,7 +12,7 @@ if [ ! -d "${API_KEY_DIR}" ]; then
 
     # Create a secrets.env file template.
     touch ${SECRETS_FILE}
-    echo -en "#/bin/bash\n\n# These are secrets used by the `cloudflare-ddns-updater` script.\n\n" > ${SECRETS_FILE}
+    echo -en "#/bin/bash\n\n# These are secrets used by the 'cloudflare-ddns-updater' script.\n\n" > ${SECRETS_FILE}
 
     echo "CLOUDFLARE_AUTH_EMAIL=\"\"                                       # The email used to login 'https://dash.cloudflare.com'" >> ${SECRETS_FILE}
     echo "CLOUDFLARE_AUTH_METHOD=\"token\"                                 # Set to "global" for Global API Key or "token" for Scoped API Token" >> ${SECRETS_FILE}
@@ -102,7 +102,7 @@ update=$(curl -s -X PATCH "https://api.cloudflare.com/client/v4/zones/${CLOUDFLA
                      -H "X-Auth-Email: ${CLOUDFLARE_AUTH_EMAIL}" \
                      -H "$auth_header ${CLOUDFLARE_AUTH_KEY}" \
                      -H "Content-Type: application/json" \
-                     --data "{\"type\":\"A\",\"name\":\"${CLOUDFLARE_RECORD_NAME}\",\"content\":\"$ip\",\"ttl\":\"${CLOUDFLARE_TTL}\",\"proxied\":${CLOUDFLARE_PROXY}}")
+                     --data "{\"type\":\"A\",\"name\":\"${CLOUDFLARE_RECORD_NAME}\",\"content\":\"$ip\",\"ttl\":${CLOUDFLARE_TTL},\"proxied\":${CLOUDFLARE_PROXY}}")
 
 ###########################################
 ## Report the status
